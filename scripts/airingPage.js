@@ -7,18 +7,18 @@ const insertNyaaLink = (card) => {
     const insertAnchor = show.querySelector('div[data-anime-card-target]');
     const styleRef = card.querySelector(".anime-date");
 
-    // create a new div to insert
-    const newDiv = document.createElement("DIV");
-    const newItem = document.createElement("A");
-    newItem.href = `https://nyaa.si/?f=0&c=0_0&q=${encodeURI(showRomaji)}&o=desc&s=seeders`;
+    // create a new element to insert
+    const nyaaWrapper = document.createElement("DIV");
+    const nyaaRef = document.createElement("A");
+    nyaaRef.href = `https://nyaa.si/?f=0&c=0_0&q=${encodeURI(showRomaji)}&o=desc&s=seeders`;
 
     // apply the copied styles to the new div, render into page
-    copyNodeStyle(styleRef, newDiv, ["padding", "background-color", "border-bottom", "color"]);
+    copyNodeStyle(styleRef, nyaaWrapper, ["padding", "background-color", "border-bottom", "color"]);
     const textnode = document.createTextNode("Nyaa.si");
-    newItem.appendChild(textnode);
-    newDiv.appendChild(newItem);
+    nyaaRef.appendChild(textnode);
+    nyaaWrapper.appendChild(nyaaRef);
 
-    insertAnchor.before(newDiv);
+    insertAnchor.before(nyaaWrapper);
 }
 
 const copyNodeStyle = (sourceNode, targetNode, stylesToCopy) => {
