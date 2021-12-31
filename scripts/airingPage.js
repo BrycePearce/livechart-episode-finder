@@ -1,7 +1,7 @@
-const handleClick = (card) => {
+const insertNyaaLink = (card) => {
     // grab the show article and show name
     const show = card.querySelector(".anime-card");
-    const showRomaji = getShowName(card.getAttribute('data-romaji')).split(":")[0];
+    const showRomaji = card.getAttribute('data-romaji').split(":")[0];
 
     // grab elements for getting insert position and styles we can copy
     const insertAnchor = show.querySelector('div[data-anime-card-target]');
@@ -21,10 +21,9 @@ const handleClick = (card) => {
     insertAnchor.before(newDiv);
 }
 
-
 const copyNodeStyle = (sourceNode, targetNode, stylesToCopy) => {
     const computedStyles = window.getComputedStyle(sourceNode);
     stylesToCopy.forEach(key => targetNode.style.setProperty(key, computedStyles.getPropertyValue(key), computedStyles.getPropertyPriority(key)));
 }
 
-document.querySelectorAll('article[data-anime-card-list-target]').forEach(card => card.onclick = handleClick(card));
+document.querySelectorAll('article[data-anime-card-list-target]').forEach(card => insertNyaaLink(card));

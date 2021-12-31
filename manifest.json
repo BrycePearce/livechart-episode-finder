@@ -8,9 +8,21 @@
             "matches": [
                 "*://*.livechart.me/*"
             ],
+            "exclude_matches": [
+                "*://*.livechart.me/notifications"
+            ],
             "run_at": "document_end",
             "js": [
-                "loadNotification.js"
+                "./scripts/airingPage.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://*.livechart.me/notifications"
+            ],
+            "run_at": "document_end",
+            "js": [
+                "./scripts/notifications.js"
             ]
         }
     ],
