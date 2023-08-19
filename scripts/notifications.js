@@ -26,25 +26,19 @@ episodeNotifications.forEach((notification) => {
   const notificationAction = notification.querySelector(
     '[data-controller="notification-action"]'
   );
-  const notificationActionTag = notificationAction.tagName;
 
   // get the actions wrapper
   const notificationActions = notificationAction.closest("div");
 
   // create element to insert into dom
-  const nyaaRef = document.createElement(notificationActionTag);
+  const nyaaRef = document.createElement("A");
   nyaaRef.innerText = "Nyaa.si";
   nyaaRef.className = notificationAction.className;
   nyaaRef.setAttribute("style", notificationAction.getAttribute("style"));
-  nyaaRef.addEventListener("mousedown", (event) => {
-    const url = `https://nyaa.si/?f=0&c=0_0&q=${encodeURI(
-      romajiName
-    )}&o=desc&s=seeders`;
+  nyaaRef.href = `https://nyaa.si/?f=0&c=0_0&q=${encodeURI(
+    romajiName
+  )}&o=desc&s=seeders`;
 
-    // Left or Middle button
-    if (event.button === 0 || event.button === 1) window.open(url);
-  });
-  
   // insert into dom
   notificationActions.appendChild(nyaaRef);
 });
