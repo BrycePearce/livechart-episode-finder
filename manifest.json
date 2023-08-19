@@ -18,7 +18,7 @@
         },
         {
             "matches": [
-                "*://*.livechart.me/notifications"
+                "*://*.livechart.me/notifications*"
             ],
             "run_at": "document_end",
             "js": [
