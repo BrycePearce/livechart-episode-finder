@@ -6,7 +6,7 @@ const notificationList = document.querySelectorAll(
 // Filter articles containing the "Episode Reminders" text
 const episodeNotifications = Array.from(notificationList).filter((article) => {
   return Array.from(article.querySelectorAll("*")).some((element) =>
-    element.textContent.toLowerCase().includes("episode reminders")
+    element.textContent.toLowerCase().includes("release reminders")
   );
 });
 
