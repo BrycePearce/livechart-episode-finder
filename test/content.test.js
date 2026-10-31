@@ -180,12 +180,20 @@ test('single links replace menus everywhere and schedule retains original title 
  assert.equal(w.document.querySelectorAll('.lcef-options, [data-lcef-menu], .lcef-controls button').length,0);
 });
 
-test('synopsis divider compensates for native padding',t=>{
- const w=setup(t,card.replace('<div data-anime-item-target="footerActionGroup"></div>','<div data-anime-item-target="synopsis" style="padding:8px 12px"><p>Synopsis</p></div>'));
- const controls=links(w)[0].parentElement;
- assert.equal(controls.style.getPropertyValue('--lcef-inset-start'),'12px');
- assert.equal(controls.style.getPropertyValue('--lcef-inset-end'),'12px');
- assert.equal(controls.style.getPropertyValue('--lcef-inset-top'),'8px');
+test('native chart row sits outside synopsis and uses native row and link color classes',async t=>{
+ const html=card.replace('<article ', '<article class="lc-anime-details-card" ').replace('<div data-anime-item-target="footerActionGroup"></div>','<div class="lc-anime-details-card__metadata lcm3-text--body-sm" data-action="site#metadata"><div>Novel</div></div><div data-anime-item-target="synopsis" style="padding:8px"><p>Synopsis</p></div>');
+ const w=setup(t,html);
+ const link=links(w)[0], row=link.parentElement, synopsis=w.document.querySelector('[data-anime-item-target="synopsis"]');
+ assert.ok(row.classList.contains('lc-anime-details-card__metadata'));
+ assert.ok(link.classList.contains('text-m3-primary'));
+ assert.equal(row.getAttribute('data-action'),null);
+ assert.equal(row.nextElementSibling,synopsis);
+ assert.equal(row.parentElement.dataset.lcefBody,'');
+ assert.equal(synopsis.style.padding,'8px');
+ synopsis.querySelector('p').textContent='Updated synopsis';
+ await settle(w);
+ assert.equal(links(w).length,1);
+ assert.equal(w.document.querySelectorAll('[data-lcef-body]').length,1);
 });
 
 test('unrelated body insertions do not rescan existing cards',async t=>{

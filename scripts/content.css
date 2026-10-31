@@ -1,15 +1,11 @@
 /* Native button rows stay native; chart links add only one compact line. */
 .lcef-controls { display:inline-flex; align-items:center; justify-content:center; position:relative; z-index:1; pointer-events:auto; max-width:100%; vertical-align:middle; }
 .lcef-link { cursor:pointer; text-decoration:none; }
-.lcef-controls[data-lcef-kind="card"][data-lcef-style="text"] {
-  display:flex;
-  max-width:none;
-  margin-inline:calc(-1 * var(--lcef-inset-start, 0px)) calc(-1 * var(--lcef-inset-end, 0px));
-  margin-top:calc(-1 * var(--lcef-inset-top, 0px));
-  margin-bottom:4px;
-  border-bottom:1px solid color-mix(in srgb, currentColor 15%, transparent);
-}
-.lcef-controls .lcef-link--chart { display:block; width:100%; color:inherit; padding:0; line-height:20px; text-align:center; }
+.lcef-card-body { grid-area:sp; display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; }
+.lcef-card-body > [data-anime-item-target~="synopsis"] { flex:1; min-height:0; }
+.lcef-card-body > .lcef-native-row { flex:none; grid-area:auto; max-width:none; }
+.lcef-controls[data-lcef-kind="card"][data-lcef-style="text"]:not(.lcef-native-row) { display:flex; }
+.lcef-controls .lcef-link--chart { display:block; width:100%; padding:0; text-align:center; }
 .lcef-controls[data-lcef-kind="compact"] { display:flex; grid-column:1 / -1; }
 .lcef-controls[data-lcef-kind="schedule"] { grid-column:2 / -1; justify-self:start; }
 .lcef-controls[data-lcef-kind="detail"] > a { flex:1; }

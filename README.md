@@ -8,7 +8,7 @@ Load this folder with Chrome's **Load unpacked**, or extract the ZIP and select 
 
 ## Behavior
 
-Chart links are compact rows above the synopsis, with a divider extending through its padding. Notifications and resource rows use native button styling alongside existing actions.
+Chart links reuse the native metadata-row classes outside the padded synopsis, with LiveChart’s primary link color. The synopsis keeps its own scrolling area. Notifications and resource rows use native button styling alongside existing actions.
 
 Searches preserve the original page-specific defaults: chart cards remove colon subtitles; notifications remove numbered season phrases and the original hyphenated-subtitle/year pattern. Schedule and detail pages use notification cleanup. Romanized titles are preferred, with English/displayed-title fallbacks. Empty cleanup results fall back to the full title. Searches sort by seeders and safely encode special characters. Earlier menu preferences are no longer used.
 

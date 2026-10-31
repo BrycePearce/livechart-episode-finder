@@ -31,6 +31,7 @@
     let kind = 'card';
     let host;
     let prepend = false;
+    let rowTemplate;
     if (item.matches(notifications)) {
       let actions = [];
       try {
@@ -62,6 +63,19 @@
     } else {
       host = first('[data-anime-item-target~="synopsis"]');
       prepend = !!host;
+      const metadata = first('.lc-anime-details-card__metadata');
+      if (host && metadata && item.matches('.lc-anime-details-card')) {
+        rowTemplate = metadata;
+        // Keep the native synopsis intact in its grid area, below a native-style row.
+        let body = host.parentElement;
+        if (!body.matches('[data-lcef-body]')) {
+          body = make('div', 'lcef-card-body');
+          body.dataset.lcefBody = '';
+          host.before(body);
+          body.append(host);
+        }
+        host = body;
+      }
       host ||= first('[data-anime-item-target~="footerActionGroup"]') || first('.anime-card');
       if (!host) {
         // Compact/simple cards: place after the title in its content area, not over the poster.
@@ -71,7 +85,7 @@
       host ||= item;
     }
     title ||= english || clean(first('[data-anime-item-target~="preferredTitle"], .anime-title')?.textContent);
-    return title && host ? {title, kind, host, prepend} : null;
+    return title && host ? {title, kind, host, prepend, rowTemplate} : null;
   }
   function make(tag, className, text) {
     const el = document.createElement(tag);
@@ -122,13 +136,14 @@
     }
     const {link} = state.get(item);
     const {textLink, buttonClass} = appearance(info);
-    const presentation = `${info.kind}:${textLink}:${buttonClass}`;
+    const presentation = `${info.kind}:${textLink}:${buttonClass}:${info.rowTemplate?.className || ''}`;
     if (controls.dataset.lcefPresentation !== presentation) {
+      controls.className = info.rowTemplate ? `lcef-controls lcef-native-row ${info.rowTemplate.className}` : 'lcef-controls';
       controls.dataset.lcefKind = info.kind;
       controls.dataset.lcefPresentation = presentation;
       controls.dataset.lcefStyle = textLink ? 'text' : 'button';
       link.className = textLink
-        ? 'lcef-link lcef-link--chart lc--focus-ring lc--focus-ring-inner lcm3-text lcm3-text--body-sm lc-link lc-link-hover'
+        ? 'lcef-link lcef-link--chart lc--focus-ring lc--focus-ring-inner lcm3-text lcm3-text--body-sm text-m3-primary lc-link lc-link-hover'
         : `lcef-link ${buttonClass}`;
       link.replaceChildren();
       if (textLink) link.textContent = 'Nyaa.si';
@@ -136,14 +151,7 @@
     }
     updateLink(link, defaultTitle(info.title, info.kind));
     if (controls.parentElement !== info.host) {
-      if (info.prepend) {
-        // Extend the divider through the synopsis padding without changing site content.
-        const style = getComputedStyle(info.host);
-        controls.style.setProperty('--lcef-inset-start', style.paddingLeft || '0px');
-        controls.style.setProperty('--lcef-inset-end', style.paddingRight || '0px');
-        controls.style.setProperty('--lcef-inset-top', style.paddingTop || '0px');
-        info.host.prepend(controls);
-      }
+      if (info.prepend) info.host.prepend(controls);
       else info.host.append(controls);
     }
   }
