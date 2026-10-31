@@ -1,32 +1,24 @@
 {
-    "name": "Livechart Episode Finder",
-    "description": "Find episodes listed in Livechart",
-    "manifest_version": 3,
-    "version": "0.1",
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.livechart.me/*"
-            ],
-            "exclude_matches": [
-                "*://*.livechart.me/notifications"
-            ],
-            "run_at": "document_end",
-            "js": [
-                "./scripts/airingPage.js"
-            ]
-        },
-        {
-            "matches": [
-                "*://*.livechart.me/notifications*"
-            ],
-            "run_at": "document_end",
-            "js": [
-                "./scripts/notifications.js"
-            ]
-        }
-    ],
-    "background": {
-        "service_worker": "background.js"
+  "name": "Livechart Episode Finder",
+  "description": "Nyaa searches for LiveChart charts, lists, schedules, anime pages and release reminders",
+  "manifest_version": 3,
+  "version": "0.3.2",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.livechart.me/*"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "scripts/search.js",
+        "scripts/content.js"
+      ],
+      "css": [
+        "scripts/content.css"
+      ]
     }
+  ],
+  "permissions": [
+    "storage"
+  ]
 }
