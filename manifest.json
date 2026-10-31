@@ -2,13 +2,13 @@
   "name": "Livechart Episode Finder",
   "description": "Nyaa searches for LiveChart charts, lists, schedules, anime pages and release reminders",
   "manifest_version": 3,
-  "version": "0.3.2",
+  "version": "0.3.3",
   "content_scripts": [
     {
       "matches": [
         "*://*.livechart.me/*"
       ],
-      "run_at": "document_end",
+      "run_at": "document_start",
       "js": [
         "scripts/search.js",
         "scripts/content.js"
@@ -17,8 +17,5 @@
         "scripts/content.css"
       ]
     }
-  ],
-  "permissions": [
-    "storage"
   ]
 }

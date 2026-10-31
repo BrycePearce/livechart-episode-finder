@@ -1,67 +1,18 @@
-/* Use native LiveChart button classes; scope our layout rules to our own controls. */
-.lcef-controls {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  pointer-events: auto;
-  max-width: 100%;
-  vertical-align: middle;
-}
-.lcef-link, .lcef-options { cursor: pointer; text-decoration: none; }
-.lcef-controls .lcef-options { min-width: 28px; padding-inline: 6px; flex: 0 0 auto; }
+/* Native button rows stay native; chart links add only one compact line. */
+.lcef-controls { display:inline-flex; align-items:center; justify-content:center; position:relative; z-index:1; pointer-events:auto; max-width:100%; vertical-align:middle; }
+.lcef-link { cursor:pointer; text-decoration:none; }
 .lcef-controls[data-lcef-kind="card"][data-lcef-style="text"] {
-  display: flex;
-  border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
-  margin-bottom: 4px;
+  display:flex;
+  max-width:none;
+  margin-inline:calc(-1 * var(--lcef-inset-start, 0px)) calc(-1 * var(--lcef-inset-end, 0px));
+  margin-top:calc(-1 * var(--lcef-inset-top, 0px));
+  margin-bottom:4px;
+  border-bottom:1px solid color-mix(in srgb, currentColor 15%, transparent);
 }
-.lcef-controls .lcef-link--chart {
-  display: inline-block;
-  color: inherit;
-  padding: 3px 6px;
-  text-align: center;
-}
-.lcef-controls[data-lcef-style="text"] .lcef-options { height: 26px; color: inherit; }
+.lcef-controls .lcef-link--chart { display:block; width:100%; color:inherit; padding:0; line-height:20px; text-align:center; }
 .lcef-controls[data-lcef-kind="compact"] { display:flex; grid-column:1 / -1; }
 .lcef-controls[data-lcef-kind="schedule"] { grid-column:2 / -1; justify-self:start; }
 .lcef-controls[data-lcef-kind="detail"] > a { flex:1; }
 .lcef-link--chart:hover { text-decoration:underline; }
-.lcef-controls :focus-visible, .lcef-menu :focus-visible { outline:2px solid currentColor; outline-offset:-2px; }
+.lcef-controls :focus-visible { outline:2px solid currentColor; outline-offset:-2px; }
 [data-notification-target~="actions"]:has(> .lcef-controls) { flex-wrap:wrap; height:auto; min-height:40px; }
-/* Popover top layer avoids clipping inside scrollable synopses and card grids. */
-.lcef-menu {
-  position:fixed;
-  inset:auto;
-  margin:0;
-  z-index:2147483647;
-  box-sizing:border-box;
-  width:320px;
-  max-width:calc(100vw - 16px);
-  max-height:calc(100dvh - 16px);
-  overflow:auto;
-  padding:16px;
-  border:1px solid color-mix(in srgb, currentColor 20%, transparent);
-  border-radius:12px;
-  background:Canvas;
-  color:CanvasText;
-  box-shadow:0 8px 28px #0005;
-  font:400 14px/1.4 Roboto, sans-serif;
-}
-.lcef-menu__heading { font-weight:700; font-size:16px; }
-.lcef-menu__subtitle { opacity:.75; margin:4px 0 10px; overflow-wrap:anywhere; }
-.lcef-menu__searches { display:grid; gap:2px; }
-.lcef-menu__search { display:grid; gap:2px; padding:8px; border-radius:6px; color:inherit; text-decoration:none; }
-.lcef-menu__search:hover { background:color-mix(in srgb, currentColor 8%, transparent); }
-.lcef-menu__search small { opacity:.7; overflow-wrap:anywhere; }
-.lcef-menu__form { display:grid; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid color-mix(in srgb, currentColor 15%, transparent); }
-.lcef-menu__field { display:grid; gap:4px; font-size:12px; }
-.lcef-menu__field input, .lcef-menu__field select {
-  box-sizing:border-box; width:100%; min-width:0; padding:8px;
-  border:1px solid color-mix(in srgb, currentColor 35%, transparent);
-  border-radius:5px; background:transparent; color:inherit; font:inherit; font-size:14px;
-}
-.lcef-menu__field select option { color:CanvasText; background:Canvas; }
-.lcef-menu__hint { display:block; font-size:12px; opacity:.75; }
-.lcef-menu__status { font-size:12px; }
-.lcef-menu__status:empty { display:none; }
